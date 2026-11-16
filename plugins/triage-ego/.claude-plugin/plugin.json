@@ -1,0 +1,8 @@
+{
+  "name": "triage-ego",
+  "version": "0.1.0",
+  "description": "Install and configure ego: OTLP intake, online evaluation, judges, RSI findings.",
+  "author": { "name": "Triage Agent" },
+  "license": "Apache-2.0",
+  "keywords": ["triage", "ego"]
+}

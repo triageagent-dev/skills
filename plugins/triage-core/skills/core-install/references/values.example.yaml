@@ -1,0 +1,86 @@
+# Values for a first Triage core install. Placeholders are in <angle brackets>.
+# Every key below exists in the triage-core chart's values.yaml. Credentials are
+# Secret names; the Secrets are created in the release namespace (see SKILL.md).
+
+image:
+  repository: ghcr.io/triageagent-dev/core
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+controller:
+  leaderElection: false
+  logLevel: info
+  # Link in outbound notifications; {id} and {tenant} are substituted. Empty sends no link.
+  issueUrlTemplate: ""
+
+# Workspaces come from the registry cell and the API (opaque IDs).
+tenants:
+  registry: true
+
+# Address people reach the core on. Required with a sign-in provider.
+sso:
+  publicURL: https://<core-host>
+  github:
+    clientId: <github-oauth-app-client-id>
+    org: <github-org>            # required: an empty org would admit any GitHub user
+
+# Agents and spots join by certificate signed by this CA (Secret with ca.crt, ca.key).
+clusterAgents:
+  enabled: true
+  join:
+    caSecret: triage-agent-ca
+    certValidity: 24h
+    installNamespace: triage
+
+# Embeddings from a local sidecar: no credentials, nomic-embed-text at 256 dims.
+# A service graph must be built with the same model and dims (core-service-graph).
+embedding:
+  sidecar:
+    enabled: true
+
+# Vertex AI instead of a gateway: set the project and bind a Google service account
+# to the core's ServiceAccount with Workload Identity.
+# gcp:
+#   project: <gcp-project>
+#   location: <region>
+# serviceAccount:
+#   annotations:
+#     iam.gke.io/gcp-service-account: <gsa>@<gcp-project>.iam.gserviceaccount.com
+
+# The deployment file. Copied verbatim; a misspelt key refuses to start.
+runtimeConfig:
+  sso:
+    github:
+      clientSecretRef: {name: triage-github-oauth, key: GITHUB_CLIENT_SECRET}
+  vectorStore:
+    enabled: true                 # concern memory, service classifier and graph search need it
+  # models:                       # omit to run deterministic processing only
+  #   main:
+  #     baseURL: http://<gateway>.<namespace>.svc
+  #     name: <model>
+  #     apiKeySecretRef: {name: triage-llm-key, key: TRIAGE_LLM_KEY}
+  #   # rca and guardrail take their own block; without one they use main
+  # otelTracing:                  # traces and the core's own metrics, idle until an endpoint is set
+  #   endpoint: <otlp-collector>:4317
+  # messenger:                    # only with spots that run as Agent Substrate actors (ADR-107)
+  #   substrate:
+  #     routerURL: http://atenet-router.<substrate-namespace>.svc
+  #     atespace: <atespace>
+  #     apiTokenFile: /var/run/triage/substrate/token    # mounted by substrateAPI below
+  #     apiCAFile: /var/run/triage/substrate/ca.pem
+
+# With spots on Agent Substrate: a projected ServiceAccount token the substrate API
+# accepts, so the core can suspend an actor after its wake report. Empty mounts nothing.
+# substrateAPI:
+#   audience: <substrate-api-audience>
+
+# Reach from outside the cluster: see references/exposure.md.
+# httpRoute:
+#   enabled: true
+#   hostname: <core-host>
+#   gatewayName: <gateway>
+#   gatewayNamespace: <gateway-namespace>
+# events:
+#   httpRoute:
+#     enabled: true

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "triage-insights",
+  "version": "2.15.41",
+  "description": "Query Triage issues, service health, and memory over MCP from Claude Code.",
+  "author": {
+    "name": "Triage Agent"
+  },
+  "skills": [
+    "./skills/triage-insights"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "triage",
+    "mcp",
+    "insights"
+  ]
+}

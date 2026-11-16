@@ -1,0 +1,8 @@
+{
+  "name": "triage-spot",
+  "version": "0.2.0",
+  "description": "Install, join and operate a spot, the always-on teammate of a workspace.",
+  "author": { "name": "Triage Agent" },
+  "license": "Apache-2.0",
+  "keywords": ["triage", "spot"]
+}

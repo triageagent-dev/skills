@@ -1,0 +1,29 @@
+# Values for a spot that joins the core by certificate and calls Claude with an API key.
+# Replace every <...>. Keep this file private and pass the whole file on every helm upgrade.
+spot:
+  enabled: true
+  tenant: workspace-a          # the workspace id
+  name: spot-a                 # lowercase letters, digits, dashes; at most 40; keep it stable
+
+core:
+  identity: certificate
+  mcpUrl: http://<core-fullname>-mcp.<core-namespace>.svc:8083/mcp
+  apiUrl: http://<core-fullname>-api.<core-namespace>.svc:8080
+  caFingerprint: SHA256:<64 lowercase hex>     # from the mint response (caFingerprint)
+  enrollKeySecret:
+    name: spot-a-enroll-key                    # the Secret holding the one-time key
+    key: key
+
+llm:
+  provider: anthropic          # anthropic | gemini
+  auth: key                    # key | federation | vertex
+  keySecret:
+    name: spot-a-model-key
+    key: key
+
+networkPolicy:
+  core:
+    namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: <core-namespace>
+    ports: [8083, 8080]        # the MCP port, and the API port for the stream and the join

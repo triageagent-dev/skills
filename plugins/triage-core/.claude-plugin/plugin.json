@@ -1,0 +1,8 @@
+{
+  "name": "triage-core",
+  "version": "0.2.0",
+  "description": "Install and configure the Triage core: Helm, access, policy, limits, workspaces, service graphs, RSI.",
+  "author": { "name": "Triage Agent" },
+  "license": "Apache-2.0",
+  "keywords": ["triage", "core"]
+}

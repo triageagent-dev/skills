@@ -1,0 +1,78 @@
+# Values for the ego Helm chart. Placeholders in <angle brackets>.
+# Every key below exists in charts/ego/values.yaml. Secrets are named here, never held here.
+
+# Single replica: the archive is one SQLite file on a ReadWriteOnce volume.
+persistence:
+  claimName: ego-session-db
+  size: 5Gi                    # chart default 1Gi; check the storage class allows growth before you rely on resizing
+  storageClass: ""             # empty uses the cluster default
+  memorySessions: 200          # completed sessions held in memory; memory use grows with this
+  retention: 720h              # sessions not updated for this long are deleted daily
+
+# Tenant label attribute. Empty means the code reads ego.tenant.
+usageTenantAttr: ""
+
+# Receivers on 4317 and 4318 require a token. The Secret holds it under the key below.
+otlpAuth:
+  enabled: true
+  secret: ego-otlp-token
+  key: OTLP_TOKEN
+
+# Choose ONE of the two blocks.
+
+# A. No login: only where the network limits who can reach the Service (port-forward, private network).
+auth:
+  enabled: false
+  defaultRole: member
+
+# B. GitHub sign-in (replace block A with this).
+# auth:
+#   enabled: true
+#   githubClientId: <oauth-app-client-id>
+#   githubOrg: <github-org>
+#   publicUrl: https://<ego-host>        # callback is <publicUrl>/auth/callback
+#   githubClientSecret: ego-github-oauth # Secret with GITHUB_CLIENT_SECRET
+#   sessionSecret: ego-session-secret    # Secret with SESSION_SECRET, at least 32 bytes
+#   defaultRole: none                    # none: people no binding covers see nothing
+#   auditLog: false
+# adminGithubUsers: [<github-login>]
+
+# Judge access. Pick one.
+# Vertex AI with Workload Identity (GKE):
+vertex:
+  enabled: false
+  # enabled: true
+  # project: <gcp-project>
+  # location: europe-west4
+  # judgeLocation: global
+# serviceAccount:
+#   annotations:
+#     iam.gke.io/gcp-service-account: <gsa>@<gcp-project>.iam.gserviceaccount.com
+#
+# Gemini API key: the chart has no dedicated value; pass it through extraEnv from a Secret.
+# extraEnv:
+#   - name: GEMINI_API_KEY
+#     valueFrom:
+#       secretKeyRef: {name: ego-gemini, key: GEMINI_API_KEY}
+
+# Reach from outside the cluster through the Gateway API (the chart renders HTTPRoute only, no Ingress).
+httpRoute:
+  enabled: false
+  # hostname: <ego-host>
+  # parentRef: {name: <gateway>, namespace: <gateway-namespace>, sectionName: https}
+
+# Limit who may reach which port. Off by default.
+networkPolicy:
+  enabled: false
+  # ingress:
+  #   - from: [{namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: <producer-namespace>}}}]
+  #     ports: [{port: 4317}, {port: 4318}]
+
+resources:
+  requests: {cpu: 25m, memory: 32Mi}
+  limits: {cpu: "1", memory: 512Mi}
+goMemLimit: 400MiB             # about 80% of the memory limit
+
+# Online evaluation: see the ego-configure-evaluation skill.
+online:
+  enabled: false

@@ -1,0 +1,36 @@
+{
+  "name": "triageagent-dev",
+  "owner": {
+    "name": "Triage Agent"
+  },
+  "metadata": {
+    "description": "Install and configure Triage: the core, the cluster agent, spots and ego."
+  },
+  "plugins": [
+    {
+      "name": "triage-core",
+      "source": "./plugins/triage-core",
+      "description": "Install and configure the Triage core: Helm, access, policy, limits, workspaces, service graphs, RSI."
+    },
+    {
+      "name": "triage-agent",
+      "source": "./plugins/triage-agent",
+      "description": "Install and configure the Triage cluster agent, Linux host agent and OTLP-only agent."
+    },
+    {
+      "name": "triage-spot",
+      "source": "./plugins/triage-spot",
+      "description": "Install, join and operate a spot, the always-on teammate of a workspace."
+    },
+    {
+      "name": "triage-ego",
+      "source": "./plugins/triage-ego",
+      "description": "Install and configure ego: OTLP intake, online evaluation, judges, RSI findings."
+    },
+    {
+      "name": "triage-insights",
+      "source": "./plugins/triage-insights",
+      "description": "Ask Triage about issues, service health and memory over MCP from Claude Code, Codex or Copilot."
+    }
+  ]
+}
