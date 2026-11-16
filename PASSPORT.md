@@ -12,8 +12,8 @@
 | Owner | Triage Agent (`owner.name` in `.claude-plugin/marketplace.json`) |
 | License | Apache-2.0 (`LICENSE`, copyright line "2026 triageagent-dev"; `license` set in all five `plugin.json`) |
 | Date | 2026-11-15 |
-| Audit status | Not run on this commit |
-| Code review | Not done on this commit |
+| Audit status | HIGH findings open (2026-11-16, commit 665563c) |
+| Code review | Findings open (2026-11-16, commit 665563c) |
 
 ## 2. Classification
 
