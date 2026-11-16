@@ -44,7 +44,7 @@ Say who already holds admin before adding anyone.
 ## 2. A ServiceAccount token (scripts, CI, and the first admin before sign-in exists)
 
 `triage-admin` is **every bit on every workspace and on the instance** (licences, account, restore, agent approval, execute tools). Default to the smallest Role that does the job: `triage-reader` for dashboards, `triage-ingester` for webhooks,
-`triage-operator` for people who act but do not manage. Ask who the subject is, which Role and how long the token should live, state the three commands, and wait for a yes. Use admin only for the person who administers the core.
+`triage-assistant` for people who act but do not manage. `triage-operator` holds `w` and `x`, so it manages the workspaces it covers (keys, agents, members and channels) like a workspace admin: give it only to someone you would make one. Ask who the subject is, which Role and how long the token should live, state the three commands, and wait for a yes. Use admin only for the person who administers the core.
 
 ```sh
 kubectl --context <ctx> -n <ns> create serviceaccount <name>

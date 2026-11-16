@@ -28,8 +28,8 @@ Say who already holds admin before adding anyone. Workspace IDs: `GET /v2/tenant
 | Person needs | Role | Bits |
 |---|---|---|
 | read issues, memory, graph | `triage-reader` | r |
-| read and act (run loops, test notifications) but not manage | `triage-operator` | rwx |
-| chat and voice with Tria, run tools, no writes | `triage-assistant` | rxv |
+| read, act (run loops, test notifications) and manage keys, agents, members (member and viewer roles) and channels, on every workspace the Role covers: the same management as a workspace `admin`, so hand it out like an admin | `triage-operator` | rwx |
+| read and act (chat and voice with Tria, run tools) but manage nothing: no keys, members or channels | `triage-assistant` | rxv |
 | read one workspace and talk to Tria there (chat, voice, cluster checks she hands over, booked reports), manage nothing | workspace `member` | rvo on that workspace |
 | read one workspace, never talk to Tria | workspace `viewer` | ro on that workspace |
 | manage keys, agents, members (member and viewer roles), channels of a workspace | workspace `owner` / `admin` | rwxivo on that workspace |
@@ -72,7 +72,7 @@ rules:
   - apiGroups: ["triageagent.dev"]
     resources: ["tenants"]
     resourceNames: ["<workspace-id>"]
-    verbs: ["get", "list", "create", "update", "execute"]   # r, w, x
+    verbs: ["get", "list", "create", "update", "execute"]   # r, w, x: w and x together also manage this workspace
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
