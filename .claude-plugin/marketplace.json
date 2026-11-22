@@ -31,6 +31,11 @@
       "name": "triage-insights",
       "source": "./plugins/triage-insights",
       "description": "Ask Triage about issues, service health and memory over MCP from Claude Code, Codex or Copilot."
+    },
+    {
+      "name": "triage-xray",
+      "source": "./plugins/triage-xray",
+      "description": "Install and connect X-Ray: agentic memory and a code graph over MCP, sign-in, access, replicas."
     }
   ]
 }

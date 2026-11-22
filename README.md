@@ -9,9 +9,10 @@ Skills for Claude Code (and any client that reads Agent Skills) that install and
 /plugin install triage-spot@triageagent-dev
 /plugin install triage-ego@triageagent-dev
 /plugin install triage-insights@triageagent-dev
+/plugin install triage-xray@triageagent-dev
 ```
 
-Then ask in your own words: "set up Triage from scratch", "install the core", "set a daily token limit", "join a cluster", "install a spot", "install ego".
+Then ask in your own words: "set up Triage from scratch", "install the core", "set a daily token limit", "join a cluster", "install a spot", "install ego", "install xray".
 
 | Plugin | Skills |
 |---|---|
@@ -20,6 +21,7 @@ Then ask in your own words: "set up Triage from scratch", "install the core", "s
 | `triage-spot` | `spot-configure`, `spot-install`, `spot-operate`, `spot-troubleshoot` |
 | `triage-ego` | `ego-configure-evaluation`, `ego-connect-agent`, `ego-install`, `ego-rsi-operate` |
 | `triage-insights` | `triage-insights`: ask Triage about issues, service health and memory over MCP |
+| `triage-xray` | `xray-install`, `xray-connect`, `xray-access`, `xray-replicas`: install X-Ray, connect Claude Code to its memory over MCP, set who may use it, run more than one replica |
 
 The skills change a cluster only for what you ask, say which context they run against, dry-run first, and never take a secret value in the conversation: they give you the `kubectl create secret` command to run yourself.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how a skill is written and checked.
