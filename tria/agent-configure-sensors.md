@@ -2,7 +2,7 @@
 
 **You write the values, the person applies them.** Every setting in the text is a Helm value of the agent's release in the person's cluster. Give the exact values (`ebpf.enabled: true` and the rest) as a values fragment or as `--set` flags for the `helm upgrade` of the existing release, with `--reuse-values` named when the person has no values file. Say what the change costs before they run it: the eBPF DaemonSet runs one pod per node with host access and needs the `privileged` Pod Security level on the agent's namespace.
 
-**For an agent that is not installed yet**, the install command comes from the console's key panel (skill agent-install-cluster); the values from this skill are added to that command.
+**For an agent that is not installed yet**, take the install command from `list_agent_keys` (skill agent-install-cluster) and add the values from this skill to it.
 
 **The workspace's cluster spot** can read, when it reaches that cluster (`ask_spot`): the DaemonSet's pods, their log, the namespace's labels and annotations. It changes nothing.
 
