@@ -36,3 +36,18 @@ skills:
   - name: spot-troubleshoot
     scope: workspace
     when: a spot is down, does not join, does not answer, or says it cannot see the cluster
+  - name: agent-install-cluster
+    scope: workspace
+    when: install the Triage agent in a Kubernetes cluster and join it to a workspace - the helm command, the key, namespace annotations, upgrade, reinstall
+  - name: agent-configure-sensors
+    scope: workspace
+    when: turn on or tune what an installed agent sends - eBPF, request metrics, service edges, network flows, logs, which namespaces are observed
+  - name: agent-choose-instrumentation
+    scope: workspace
+    when: which way to observe a system - eBPF, OpenTelemetry or a host agent - and what each one gives
+  - name: agent-install-host-otlp
+    scope: workspace
+    when: install the agent on a Linux host, or an agent that only receives OpenTelemetry from a Collector
+  - name: agent-troubleshoot
+    scope: workspace
+    when: an agent does not join, is not connected, or a namespace or a signal (metrics, edges, logs) is missing
