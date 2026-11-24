@@ -1,0 +1,38 @@
+# The skills Tria is offered, and to whom. Each skill named here needs
+# tria/<name>.md: who carries out its steps (Tria's own tools, the workspace's
+# cluster spot, or the person). A skill not named here is not offered to Tria.
+#
+# scope: workspace = for a person who manages a workspace (owner, admin);
+#        instance  = for the core's administrator only.
+# when:  one line, at most 240 characters; Tria picks a skill by it.
+skills:
+  - name: core-workspaces
+    scope: workspace
+    when: create, rename, limit, delete or restore a workspace; its members and roles; how many agents and spots it may hold
+  - name: core-users
+    scope: workspace
+    when: give a person a role on a workspace, change it or take it away; "who has access"; "I can sign in but see nothing"
+  - name: core-access
+    scope: instance
+    when: how sign-in, tokens, roles and the r/w/x capability bits work on the core; a 401 or 403 that a role does not explain
+  - name: core-policy
+    scope: instance
+    when: change the core's behaviour or limits in the policy - token caps, loop intervals, guardrail, presets, per-workspace overrides
+  - name: core-rsi
+    scope: instance
+    when: turn on, stage, run or stop the self-improvement loop (RSI); read and approve its proposals
+  - name: core-events-notifications
+    scope: workspace
+    when: where issues are sent (Slack, Teams, Discord, Opsgenie, webhook), test a channel, send monitoring alerts into Triage
+  - name: spot-install
+    scope: workspace
+    when: add a spot to a workspace - "create a spot", "I need a spot with cluster access", "add a teammate agent"
+  - name: spot-operate
+    scope: workspace
+    when: run the spots day to day - list them, their state and spend, wake, pause, stop a task, read the bus room, remove one
+  - name: spot-configure
+    scope: workspace
+    when: change what a spot is or may do - its model, daily token cap, connectors, how often it wakes
+  - name: spot-troubleshoot
+    scope: workspace
+    when: a spot is down, does not join, does not answer, or says it cannot see the cluster
